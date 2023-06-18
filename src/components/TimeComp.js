@@ -6,15 +6,17 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import { TimelineOppositeContent } from "@mui/lab";
 import moment from "moment/moment";
 import tasks from "../Json/Task";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import DatePickerComp from "./DatePickerComp";
 import {
+  Card,
+  CardContent,
   CssBaseline,
   Stack,
+  Typography,
 } from "@mui/material";
 
 import {  useTranslation } from "react-i18next";
@@ -79,6 +81,7 @@ export default function OutlinedTimeline() {
           mt: 3,
         }}
       >
+
         <Stack
           spacing={{ xs: 1, sm: 2 }}
           direction="row"
@@ -90,11 +93,6 @@ export default function OutlinedTimeline() {
             {createTimeline.map((item) => {
               return (
                 <TimelineItem key={item.date + item.activity}>
-                  {/* <TimelineOppositeContent>
-                    {moment(item.date).format('DD-MM-YYYY')}
-                    <br/>
-                    {moment(item.date).format('hh:mm A')}
-                  </TimelineOppositeContent> */}
                   <TimelineSeparator>
                     <TimelineDot
                       variant="outlined"
@@ -105,11 +103,23 @@ export default function OutlinedTimeline() {
                     />
                   </TimelineSeparator>
                   <TimelineContent>
-                  {t(item.activity)}
-                  <br/>
-                  {moment(item.date).format('DD-MM-YYYY')}
-                    <br/>
-                    {moment(item.date).format('hh:mm A')}
+                  <Card
+                  sx={{
+                    boxShadow:"0 3px 10px rgb(0 0 0 / 0.2)"
+                    }}
+                  >
+                      <CardContent>
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {moment(item.date).format('MMM DD YYYY')}
+                     </Typography>
+                     <Typography variant="body2" gutterBottom>
+                        {t(item.activity)}
+                      </Typography>
+                      <Typography align="right">
+                        {moment(item.date).format('hh:mm A')}
+                      </Typography>
+                      </CardContent>
+                    </Card>
                   </TimelineContent>
                 </TimelineItem>
               );
